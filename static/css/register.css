@@ -1,0 +1,15 @@
+.input_form {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* .btn btn-primary */
+.btn-container{
+  display:flex;
+  justify-content: center;
+}
+
+.alert-reg{
+  margin-bottom: 10px;
+}

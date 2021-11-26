@@ -1,0 +1,7 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="input_form">
+<a class="btn btn-primary" style="margin: 0px 20px" href="{% url 'login' %}" role="button">Войти по логину</a>
+<a class="btn btn-primary" style="margin: 0px 20px" href="{% url 'login_email' %}" role="button">Войти по email</a>
+</div>
+{% endblock %}

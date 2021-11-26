@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="alert-reg">
+<div class="alert alert-danger" role="alert">
+  {{vacation}}
+</div>
+</div>
+<div class="input_form">
+  <!-- Example split danger button -->
+  <form action="{% url 'admin_vacation' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <center>
+  <select class="btn btn-secondary dropdown-toggle"  type="button" name="combo-name" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="id_temperature_unit" name="temperature_unit">
+      <option>Выберите сотрудника</option>
+{% for user_name in users_names %}
+     <option value="{{ user_name}}"">{{ user_name }}</option>
+{% endfor %}
+</select>
+</center>
+<br/>
+
+  <div style="display: flex; flex-direction: column; align-items: flex-center;" class="input_form">
+    <label>Дата начала отпуска:</label>
+    <input id="datepicker" type="date" name="date"/>
+  </div>
+  <div style="display: flex; flex-direction: column; align-items: flex-center;" class="input_form">
+    <label>Дата окончания отпуска:</label>
+    <input id="datepicker2" type="date" name="date2"/>
+  </div>
+<br/>
+<div class="btn-container"><button type="submit" class="btn btn-primary">Сформировать отпуск</button></div>
+</form>
+
+</div>
+{% endblock %}

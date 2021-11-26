@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="alert-reg">
+<div class="alert alert-success" role="alert">
+  Отпуск успешно удалён!
+</div>
+</div>
+<h4 align="center">Сотрудники:</h4>
+<div class="input_form">
+<br/>
+<ol>
+  <form action="{% url 'staff_info' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+{% for key,value in context.items %}
+
+<div class="card" style="width: 40rem;">
+  <div class="card-header">
+    <li><b>{{value.last_name}} &nbsp {{value.first_name}}</b></li>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Рабочих дней: &nbsp {{value.work_days}}</li>
+    <li class="list-group-item">Больничные:
+      <ul type="circle">
+      {% for item2 in value.sick_days %}
+      <li><p>{{item2}};</p></li>
+      {% endfor %}
+    </ul></li>
+    <li class="list-group-item">Отгулы:
+      <ul type="circle">
+      {% for item3 in value.off_days %}
+      <li><p>{{item3}};</p></li>
+      {% endfor %}
+    </ul></li>
+    <li class="list-group-item">Работа вне офиса:
+      <ul type="circle">
+      {% for item4 in value.out_days %}
+      <li><p>{{item4}};</p></li>
+      {% endfor %}
+    </ul></li>
+    <li class="list-group-item">Отпуска - {{value.count_vac_days}} дн(ей/я/ень): &nbsp &nbsp &nbsp
+      <ul type="circle">
+      {% for item1 in value.vac_days %}
+      <li><p>{{item1}} &nbsp
+        <input type="submit" class="btn btn-danger" name = "{{key}} {{item1}} " value="х"></input>
+      </p></li>
+      {% endfor %}
+    </ul></li>
+  </ul>
+</div>
+
+ <br/>
+{% endfor %}
+</form>
+</ol>
+</div>
+{% endblock %}

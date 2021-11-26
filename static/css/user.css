@@ -1,0 +1,15 @@
+.elnt_container{
+  padding: 6px 8px;
+}
+#conditional_part{
+  padding: 6px 0px;
+  display:none;
+}
+#conditional_part1{
+  padding: 6px 0px;
+  display:none;
+}
+#conditional_part2{
+  padding: 6px 0px;
+  display:none;
+}

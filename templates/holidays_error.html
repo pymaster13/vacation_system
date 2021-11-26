@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="alert-reg">
+<div class="alert alert-danger" role="alert">
+  Проверьте правильность введённых данных!
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal-title-centered" id="exampleModalLabel">Добавить государственный праздник</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'add_holiday' %}" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          <label for="holiday-name">Название государственного праздника</label><br/>
+          <input id="holiday-name" type="text" name="holiday-name"/>
+          <div style="display: flex; flex-direction: column; align-items: flex-start;" class="input_form">
+            <label>Выберите дату начала праздника:</label>
+            <input id="datepicker" type="date" name="date"/>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-start;" class="input_form">
+            <label>Выберите дату окончания праздника:</label>
+            <input id="datepicker2" type="date" name="date2"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <button type="submit" class="btn btn-primary">Добавить праздник</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<br/>
+<h4 align = "center">Государственные праздники:</h4>
+
+<center>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Добавить государственный праздник
+</button>
+</center>
+<br/>
+
+<div class="input_form">
+
+
+<br/>
+<form action="{% url 'holidays' %}" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+<ol>
+{% for key,value in context.items %}
+
+  <h5><li>{{key}} - {{value}}
+
+        <input type="submit" class="btn btn-danger" name = "{{key}}" value="Удалить"></input></li></h5>
+
+ <br/>
+{% endfor %}
+</ol>
+</form>
+</div>
+
+
+
+
+{% endblock %}

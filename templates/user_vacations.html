@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h4 align="center">Сотрудники:</h4>
+
+<form action="{% url 'vacations_list' %}" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  <center>
+    <div class="input_form">
+<select class="btn btn-secondary dropdown-toggle" multiple type="button" name="combo-name" id="dropdownMenuButton">
+    <option selected>Все сотрудники</option>
+{% for user in users %}
+   <option value="{{user.username}}">{{user.last_name}} {{user.first_name}}</option>
+{% endfor %}
+</select>
+</center>
+<div class="input_form">
+<input type="submit" class="btn btn-primary" value ="Выбрать"></input>
+</div>
+</form>
+</div>
+
+<div class="input_form">
+<ol>
+{% for key,value in context.items %}
+<div class="card" style="width: 40rem;">
+  <div class="card-header">
+    <li><b>{{value.last_name}} &nbsp {{value.first_name}}</b></li>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Отпуска - {{value.count_vac_days}} дн(ей/я/ень): &nbsp &nbsp &nbsp
+      <p/>
+      <ul type="circle">
+      {% for item1 in value.new_vac %}
+      <li><p>с {{item1.vac_start}} по {{item1.new_vacation_end}} &nbsp
+      </p></li>
+      {% endfor %}
+    </ul></li>
+  </ul>
+</div>
+ <br/>
+{% endfor %}
+</ol>
+</div>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends "index.html" %}
+{% load mathfilters %}
+{% block content %}
+
+
+
+{% if user.is_authenticated %}
+<p/>
+<h4 align = "center">Здравствуйте, {{user.last_name}} {{user.first_name}}!</h4>
+<p/>
+{% endif %}
+
+<div class="input_form">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Запросить отпуск
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal-title-centered" id="exampleModalLabel">Выбор отпуска</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="{% url 'add_vacation' %}" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          <label for="RadioButton1">Выберите количество дней отпуска:</label><br/>
+          <div class="form-check">
+
+            <input class="form-check-input" type="radio" name="Radios" id="RadioButton1" value="7" checked>
+            <label class="form-check-label" for="RadioButton1">
+              7 дней
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="Radios" id="RadioButton2" value="14">
+            <label class="form-check-label" for="RadioButton2">
+              14 дней
+            </label>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-start;" class="input_form">
+            <label>Выберите дату начала отпуска:</label>
+            <input id="datepicker" type="date" name="date"/>
+          </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <button type="submit" class="btn btn-primary">Запросить отпуск</button>
+        </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" style="margin: 0 0 0 10px;" data-toggle="modal" data-target="#exampleModal1">
+  Добавить больничный
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal-title-centered" id="exampleModalLabel">Добавление больничного</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="{% url 'add_sick' %}" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+
+           <div class="elnt_container">
+             <input id="few_days" name="few_days" type="checkbox" />
+             <label for="few_days">   добавить несколько дней</label>
+           </div>
+           <input id="datepicker1" type="date" name="date1"/>
+           <div id="conditional_part">
+           <input id="datepicker2" type="date" name="date2"/>
+           </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <button type="submit" class="btn btn-primary">Добавить больничный</button>
+        </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" style="margin: 0 0 0 10px;" data-toggle="modal" data-target="#exampleModal2">
+  Добавить отгул
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal-title-centered" id="exampleModalLabel">Добавление отгула</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="{% url 'add_day_off' %}" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+
+           <div class="elnt_container">
+             <input id="few_days1" name="few_days1" type="checkbox" />
+             <label for="few_days1">   добавить несколько дней</label>
+           </div>
+           <input id="datepicker1" type="date" name="date1"/>
+           <div id="conditional_part1">
+           <input id="datepicker2" type="date" name="date2"/>
+           </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <button type="submit" class="btn btn-primary">Добавить отгул</button>
+        </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" style="margin: 0 0 0 10px;" data-toggle="modal" data-target="#exampleModal3">
+  Добавить работу вне офиса
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal-title-centered" id="exampleModalLabel">Добавление работы вне офиса</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="{% url 'add_out_office' %}" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+
+           <div class="elnt_container">
+             <input id="few_days2" name="few_days2" type="checkbox" />
+             <label for="few_days2">   добавить несколько дней</label>
+           </div>
+           <input id="datepicker1" type="date" name="date1"/>
+           <div id="conditional_part2">
+           <input id="datepicker2" type="date" name="date2"/>
+           </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <button type="submit" class="btn btn-primary">Добавить работу вне офиса</button>
+        </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="input_form">
+
+<div class="card" style="width: 40rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Рабочих дней: &nbsp {{context.work_days}}</li>
+    {% if context.vacation_days < 0 %}
+    <li class="list-group-item">Свободных дней отпуска: 0 (лишних: {{context.vacation_days|abs}})</li>
+    {% else %}
+    <li class="list-group-item">Свободных дней отпуска: {{vacation_days}}</li>
+    {% endif %}
+    <li class="list-group-item">Больничные:
+
+      <form action="{% url 'delete_sick' %}" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+            <ul type="circle">
+            {% for item2 in context.sick_days %}
+            {% if item2.sick_start == item2.sick_end%}
+            <li><p>{{item2.sick_start}} &nbsp
+              <input type="submit" class="btn btn-danger" name = "{{item2.id}}" value="х"></input>
+            </p></li>
+            {% elif item2.sick_start != item2.sick_end %}
+            <li><p>с {{item2.sick_start}} по {{item2.sick_end}} &nbsp
+              <input type="submit" class="btn btn-danger" name = "{{item2.id}}" value="х"></input>
+            </p></li>
+            {% endif %}
+            {% endfor %}
+          </ul></li>
+      </form>
+
+    <form action="{% url 'delete_day_off' %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+        <li class="list-group-item">Отгулы:
+          <ul type="circle">
+          {% for item3 in context.off_days %}
+          {% if item3.day_off_start == item3.day_off_end%}
+          <li><p>{{item3.day_off_start}} &nbsp
+            <input type="submit" class="btn btn-danger" name = "{{item3.id}}" value="х"></input>
+          </p></li>
+          {% elif item3.day_off_start != item3.day_off_end %}
+          <li><p>с {{item3.day_off_start}} по {{item3.day_off_end}} &nbsp
+            <input type="submit" class="btn btn-danger" name = "{{item3.id}}" value="х"></input>
+          </p></li>
+          {% endif %}
+          {% endfor %}
+        </ul></li>
+    </form>
+
+    <form action="{% url 'delete_out_office' %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+        <li class="list-group-item">Работа вне офиса:
+          <ul type="circle">
+          {% for item4 in context.out_days %}
+          {% if item4.out_office_start == item4.out_office_end%}
+          <li><p>{{item4.out_office_start}} &nbsp
+            <input type="submit" class="btn btn-danger" name = "{{item4.id}}" value="х"></input>
+          </p></li>
+          {% elif item4.out_office_start != item4.out_office_end%}
+          <li><p>с {{item4.out_office_start}} по {{item4.out_office_end}} &nbsp
+            <input type="submit" class="btn btn-danger" name = "{{item4.id}}" value="х"></input>
+          </p></li>
+          {% endif %}
+          {% endfor %}
+        </ul></li>
+    </form>
+
+    <li class="list-group-item">Отпуска - {{context.count_vac_days}} дн(ей/я/ень): &nbsp &nbsp &nbsp
+      <ul type="circle">
+
+        {% for item1 in context.new_vac_days %}
+        <li><p>с {{item1.vac_start}} по {{item1.new_vacation_end}} &nbsp
+        </p></li>
+        {% endfor %}
+
+    </ul></li>
+  </ul>
+</div>
+ <br/>
+</div>
+{% endblock %}
