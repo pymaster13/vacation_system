@@ -1,5 +1,5 @@
 ### Vacation system
-Internal corporate website implemented with Django 2 (2020) (Fullstack). Frontend reailzed with html, css, js, bootstrap.
+Internal corporate website implemented with Django 2 (2020) (Fullstack). Frontend is reailzed with html, css, js, bootstrap.
 
 ## Getting Started
 Python version: 3.7.5
