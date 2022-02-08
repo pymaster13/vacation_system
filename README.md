@@ -25,7 +25,5 @@ python3 manage.py runserver
 ```
 
 ## Functional
-
-The clients and admin sides are realized.
 - It was necessary to create a system for the distribution of vacations of employees. 
 - All employees are divided into 3 categories: administrators, managers and ordinary users, each of which has its own rights.
